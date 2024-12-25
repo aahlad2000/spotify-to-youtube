@@ -1,3 +1,72 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+__pycache__
+# Distribution and packaging
+*.egg
+*.egg-info/
+dist/
+build/
+*.wheel
 .env
-env
-.venv
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+ENV/
+
+# Logs and debug files
+*.log
+*.out
+*.err
+*.sqlite3
+*.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# System-specific files
+.DS_Store
+Thumbs.db
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test coverage files
+.coverage
+*.cover
+coverage.xml
+*.coverage.*
+
+# Pytest and test-related files
+.pytest_cache/
+htmlcov/
+
+# Static files and temporary files
+staticfiles/
+media/
+*.tmp
+
+# Mypy type checker
+.mypy_cache/
+dmypy.json
+
+# Pylint, Flake8, or Bandit reports
+.pylint.d/
+flake8-report.txt
+bandit-report.json
+
+# Poetry
+poetry.lock
+
+# Cython
+*.c
+*.so
+
+# Custom ignore patterns
+local_settings.py

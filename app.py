@@ -1,13 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from db.database import engine
+from db.models import Base
 # Initialize the FastAPI app
 app = FastAPI(
     title="SpotifyToYoutube",
     description="Spotify to Youtube API",
     version="0.1.0",
 )
-
+@app.on_event("startup")
+async def startup():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
 # CORS configuration
 origins = [
     "http://localhost",

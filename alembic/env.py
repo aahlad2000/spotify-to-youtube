@@ -1,4 +1,6 @@
 from logging.config import fileConfig
+import os
+from dotenv import load_dotenv
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import create_async_engine
 from alembic import context
@@ -14,9 +16,10 @@ fileConfig(config.config_file_name)
 
 # Set the target metadata for Alembic
 target_metadata = Base.metadata
+load_dotenv()  # Load .env file
+DATABASE_URL = os.getenv('DATABASE_URL')
+config.set_main_option('sqlalchemy.url', os.getenv('DATABASE_URL'))
 
-# Retrieve the database URL
-DATABASE_URL = config.get_main_option("sqlalchemy.url")
 
 
 def run_migrations_offline():

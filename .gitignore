@@ -69,4 +69,6 @@ poetry.lock
 *.so
 
 # Custom ignore patterns
-local_settings.py
+local_settings.py 
+alembic.ini
+firebase-credentials.json

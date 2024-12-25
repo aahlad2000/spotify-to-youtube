@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from db.database import engine
 from db.models import Base
+from controllers.controller import router
 # import firebase_admin
 # from firebase_admin import credentials, firestore
 
@@ -23,6 +24,7 @@ app = FastAPI(
 async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        
 # CORS configuration
 origins = [
     "http://localhost",
@@ -37,18 +39,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Root route
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to FastAPI Boilerplate!"}
-
-
-# Example route
-@app.get("/api/example")
-def example_endpoint():
-    return {"message": "This is an example endpoint!"}
-
-# Health check
-@app.get("/health")
-def health_check():
-    return {"status": "OK"}
+app.include_router(router)

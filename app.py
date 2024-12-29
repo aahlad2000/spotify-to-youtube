@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from db.database import engine
 from db.models import Base
 from controllers.controller import router
+from services.services import router as service_router
 # import firebase_admin
 # from firebase_admin import credentials, firestore
 
@@ -40,3 +41,4 @@ app.add_middleware(
 )
 
 app.include_router(router)
+app.include_router(service_router)

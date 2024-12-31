@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 import urllib.parse
 from lib.utils import generate_random_string
 import requests
@@ -30,9 +30,9 @@ def redirect():
         print(f"Failed to login: {e}")
 
 @router.get("/callback")
-def callback(req, res):
-    code = req.query.code or None
-    state = req.query.state or None
+def callback(request: Request):
+    code = request.query_params.get('code') or None
+    state = request.query_params.get('state') or None
 
     query_params = urllib.parse.urlencode({
     'error': 'state_mismatch'
@@ -40,7 +40,7 @@ def callback(req, res):
 
     if(state == None):
         print("State is null")
-        res.redirect('/#', query_params)
+        return RedirectResponse(url=f"/#?{query_params}")
     else:
         auth_url = 'https://accounts.spotify.com/api/token'
         auth_headers = {
@@ -54,4 +54,4 @@ def callback(req, res):
         }
         response = requests.post(auth_url, data=auth_form, headers=auth_headers)
         response_data = response.json()
-        print(f"response data : {response_data}")
+        return response_data
